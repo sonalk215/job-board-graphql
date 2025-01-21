@@ -1,0 +1,9 @@
+type Query {
+  greeting: String
+  job: Job
+}
+# ...define a custom object type which can be used as type of query
+type Job {
+  title: String
+  description: String
+}
