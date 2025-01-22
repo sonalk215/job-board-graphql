@@ -1,4 +1,4 @@
-import { getJob, getJobs } from './db/jobs.js';
+import { getJob, getJobs, getJobsByCompany } from './db/jobs.js';
 import { getCompany } from './db/companies.js';
 
 export const resolvers = {
@@ -23,6 +23,12 @@ export const resolvers = {
     },
     company: (job) => {
       return getCompany(job.companyId);
+    },
+  },
+
+  Company: {
+    jobs: (company) => {
+      return getJobsByCompany(company.id);
     },
   },
 };
