@@ -1,10 +1,16 @@
-import { getJobs } from './db/jobs.js';
+import { getJob, getJobs } from './db/jobs.js';
 import { getCompany } from './db/companies.js';
 
 export const resolvers = {
   Query: {
-    greeting: () => 'Hello world greeting',
+    job: (_root, args) => {
+      return getJob(args.id);
+    },
+    company: (_root, args) => {
+      return getCompany(args.id);
+    },
     jobs: () => getJobs(),
+    greeting: () => 'Hello world greeting',
   },
   // field resolvers, to resolve any field of any type
 
