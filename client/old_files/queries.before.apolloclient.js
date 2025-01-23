@@ -15,7 +15,7 @@ const client = new GraphQLClient('http://localhost:9000/graphql', {
   },
 });
 
-const apolloClient = new ApolloClient({
+const apolloclient = new ApolloClient({
   uri: 'http://localhost:9000/graphql',
   cache: new InMemoryCache(),
 });
@@ -49,13 +49,8 @@ export const getJobs = async () => {
       }
     }
   `;
-  //------use GraphQL client
-  // const data = await client.request(query);
-  // return data.jobs;
-
-  //------use Apollo client
-  const result = await apolloClient.query({ query });
-  return result.data.jobs;
+  const data = await client.request(query);
+  return data.jobs;
 };
 
 export const getJob = async (id) => {
@@ -73,12 +68,7 @@ export const getJob = async (id) => {
       }
     }
   `;
-  //------use GraphQL client
-  // const data = await client.request(query, { id });
-  // return data.job;
-
-  //------use Apollo client
-  const { data } = await apolloClient.query({ query, variables: { id } });
+  const data = await client.request(query, { id });
   return data.job;
 };
 
@@ -97,11 +87,6 @@ export const getCompany = async (id) => {
       }
     }
   `;
-  //------use GraphQL client
-  // const { company } = await client.request(query, { id });
-  // return company;
-
-  //------use Apollo client
-  const { data } = await apolloClient.query({ query, variables: { id } });
-  return data.company;
+  const { company } = await client.request(query, { id });
+  return company;
 };

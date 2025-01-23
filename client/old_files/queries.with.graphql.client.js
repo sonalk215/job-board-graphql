@@ -1,6 +1,4 @@
-import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
-// import { GraphQLClient, gql } from 'graphql-request';
-import { GraphQLClient } from 'graphql-request';
+import { GraphQLClient, gql } from 'graphql-request';
 import { getAccessToken } from '../auth';
 
 const client = new GraphQLClient('http://localhost:9000/graphql', {
@@ -13,11 +11,6 @@ const client = new GraphQLClient('http://localhost:9000/graphql', {
     }
     return {};
   },
-});
-
-const apolloClient = new ApolloClient({
-  uri: 'http://localhost:9000/graphql',
-  cache: new InMemoryCache(),
 });
 
 export const createJob = async ({ title, description }) => {
@@ -49,13 +42,8 @@ export const getJobs = async () => {
       }
     }
   `;
-  //------use GraphQL client
-  // const data = await client.request(query);
-  // return data.jobs;
-
-  //------use Apollo client
-  const result = await apolloClient.query({ query });
-  return result.data.jobs;
+  const data = await client.request(query);
+  return data.jobs;
 };
 
 export const getJob = async (id) => {
@@ -73,12 +61,7 @@ export const getJob = async (id) => {
       }
     }
   `;
-  //------use GraphQL client
-  // const data = await client.request(query, { id });
-  // return data.job;
-
-  //------use Apollo client
-  const { data } = await apolloClient.query({ query, variables: { id } });
+  const data = await client.request(query, { id });
   return data.job;
 };
 
@@ -97,11 +80,6 @@ export const getCompany = async (id) => {
       }
     }
   `;
-  //------use GraphQL client
-  // const { company } = await client.request(query, { id });
-  // return company;
-
-  //------use Apollo client
-  const { data } = await apolloClient.query({ query, variables: { id } });
-  return data.company;
+  const { company } = await client.request(query, { id });
+  return company;
 };
