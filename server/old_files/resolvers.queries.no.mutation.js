@@ -1,11 +1,4 @@
-import {
-  createJob,
-  deleteJob,
-  getJob,
-  getJobs,
-  getJobsByCompany,
-  updateJob,
-} from './db/jobs.js';
+import { createJob, getJob, getJobs, getJobsByCompany } from './db/jobs.js';
 import { getCompany } from './db/companies.js';
 import { GraphQLError } from 'graphql';
 
@@ -34,7 +27,7 @@ export const resolvers = {
     //if there is a resolver function for a field, it will take precedence
     // title: () => 'Resolved title',
     date: (job) => {
-      // console.log(job);
+      console.log(job);
       return toIsoDate(job.createdAt);
     },
     company: (job) => {
@@ -42,17 +35,13 @@ export const resolvers = {
     },
   },
 
+  // mutation type-----
   Mutation: {
-    createJob: (_root, { input: { title, description } }) => {
+    createJob: (_root, args) => {
+      // console.log('------', args);
       const companyId = 'FjcJCHJALA4i';
-      // const { title, description } = args;
+      const { title, description } = args;
       return createJob({ companyId, title, description });
-    },
-    deleteJob: async (_root, { id }) => {
-      deleteJob(id);
-    },
-    updateJob: (_root, { input: { id, title, description } }) => {
-      return updateJob({ id, title, description });
     },
   },
 

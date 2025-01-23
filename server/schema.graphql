@@ -4,6 +4,12 @@ type Query {
   jobs: [Job!]
   greeting: String
 }
+
+type Mutation {
+  createJob(input: CreateJobInput!): Job
+  deleteJob(id: ID!): Job
+  updateJob(input: UpdateJobInput!): Job
+}
 # ...define a custom object type which can be used as type of query
 """
 Represents a job ad posted to our board
@@ -23,5 +29,16 @@ type Job {
   date: String!
   title: String!
   company: Company!
+  description: String
+}
+
+input CreateJobInput {
+  title: String!
+  description: String
+}
+
+input UpdateJobInput {
+  id: ID!
+  title: String!
   description: String
 }
