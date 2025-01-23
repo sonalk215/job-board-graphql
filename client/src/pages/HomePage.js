@@ -10,7 +10,7 @@ const HomePage = () => {
     getJobs().then((jobs) => setJobs(jobs));
   }, []);
 
-  console.log('[HomePage] jobs:', jobs);
+  // console.log('[HomePage] jobs:', jobs);
   return (
     <div>
       <h1 className="title">Job Board</h1>

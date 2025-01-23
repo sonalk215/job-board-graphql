@@ -56,21 +56,6 @@ const jobByIdQuery = gql`
   ${jobDetailFragment}
 `;
 
-export const companyByIdQuery = gql`
-  query CompanyById($id: ID!) {
-    company(id: $id) {
-      id
-      name
-      description
-      jobs {
-        id
-        date
-        title
-      }
-    }
-  }
-`;
-
 export const createJob = async ({ title, description }) => {
   const mutation = gql`
     mutation CreateJob($input: CreateJobInput!) {
@@ -134,27 +119,26 @@ export const getJob = async (id) => {
   return data.job;
 };
 
-// no longer used as we are using useQuery hook
-// export const getCompany = async (id) => {
-//   const query = gql`
-//     query CompanyById($id: ID!) {
-//       company(id: $id) {
-//         id
-//         name
-//         description
-//         jobs {
-//           id
-//           date
-//           title
-//         }
-//       }
-//     }
-//   `;
-//   //------use GraphQL client
-//   // const { company } = await client.request(query, { id });
-//   // return company;
+export const getCompany = async (id) => {
+  const query = gql`
+    query CompanyById($id: ID!) {
+      company(id: $id) {
+        id
+        name
+        description
+        jobs {
+          id
+          date
+          title
+        }
+      }
+    }
+  `;
+  //------use GraphQL client
+  // const { company } = await client.request(query, { id });
+  // return company;
 
-//   //------use Apollo client
-//   const { data } = await apolloClient.query({ query, variables: { id } });
-//   return data.company;
-// };
+  //------use Apollo client
+  const { data } = await apolloClient.query({ query, variables: { id } });
+  return data.company;
+};
