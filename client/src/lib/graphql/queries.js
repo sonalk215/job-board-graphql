@@ -47,13 +47,27 @@ const jobDetailFragment = gql`
   }
 `;
 
-const jobByIdQuery = gql`
+export const jobByIdQuery = gql`
   query JobById($id: ID!) {
     job(id: $id) {
       ...JobDetail
     }
   }
   ${jobDetailFragment}
+`;
+
+export const jobsQuery = gql`
+  query Jobs {
+    jobs {
+      id
+      date
+      title
+      company {
+        id
+        name
+      }
+    }
+  }
 `;
 
 export const companyByIdQuery = gql`
@@ -98,41 +112,41 @@ export const createJob = async ({ title, description }) => {
   return data.job;
 };
 
-export const getJobs = async () => {
-  const query = gql`
-    query Jobs {
-      jobs {
-        id
-        date
-        title
-        company {
-          id
-          name
-        }
-      }
-    }
-  `;
+// export const getJobs = async () => {
+//   const query = gql`
+//     query Jobs {
+//       jobs {
+//         id
+//         date
+//         title
+//         company {
+//           id
+//           name
+//         }
+//       }
+//     }
+//   `;
+//   //------use Apollo client
+//   const result = await apolloClient.query({
+//     query,
+//     fetchPolicy: 'network-only',
+//   });
+//   return result.data.jobs;
+// };
 
-  //------use Apollo client
-  const result = await apolloClient.query({
-    query,
-    fetchPolicy: 'network-only',
-  });
-  return result.data.jobs;
-};
+//not required anymore because using hooks
+// export const getJob = async (id) => {
+//   //------use GraphQL client
+//   // const data = await client.request(query, { id });
+//   // return data.job;
 
-export const getJob = async (id) => {
-  //------use GraphQL client
-  // const data = await client.request(query, { id });
-  // return data.job;
-
-  //------use Apollo client
-  const { data } = await apolloClient.query({
-    query: jobByIdQuery,
-    variables: { id },
-  });
-  return data.job;
-};
+//   //------use Apollo client
+//   const { data } = await apolloClient.query({
+//     query: jobByIdQuery,
+//     variables: { id },
+//   });
+//   return data.job;
+// };
 
 // no longer used as we are using useQuery hook
 // export const getCompany = async (id) => {
