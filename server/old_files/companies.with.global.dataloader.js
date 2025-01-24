@@ -7,12 +7,12 @@ export async function getCompany(id) {
   return await getCompanyTable().first().where({ id });
 }
 
-// export const companyLoader = new DataLoader(async (ids) => {
-//   console.log('[CompanyLoader ids] ', ids);
-//   const companies = await getCompanyTable().select().whereIn('id', ids);
+export const companyLoader = new DataLoader(async (ids) => {
+  console.log('[CompanyLoader ids] ', ids);
+  const companies = await getCompanyTable().select().whereIn('id', ids);
 
-//   return ids.map((id) => companies.find((company) => company.id === id));
-// });
+  return ids.map((id) => companies.find((company) => company.id === id));
+});
 
 export const createCompanyLoader = () => {
   return new DataLoader(async (ids) => {

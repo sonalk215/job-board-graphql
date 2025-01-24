@@ -37,9 +37,8 @@ export const resolvers = {
       // console.log(job);
       return toIsoDate(job.createdAt);
     },
-    company: (job, _args, { companyLoader }) => {
-      return companyLoader.load(job.companyId);
-      // return getCompany(job.companyId);
+    company: (job) => {
+      return getCompany(job.companyId);
     },
   },
 

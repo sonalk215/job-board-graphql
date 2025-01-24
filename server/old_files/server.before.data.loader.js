@@ -21,10 +21,13 @@ const getContext = async ({ req }) => {
   const companyLoader = createCompanyLoader();
   const context = { companyLoader };
   if (req.auth) {
-    context.user = await getUser(req.auth.sub);
+    const user = await getUser(req.auth.sub);
+    return { user };
   }
-
-  return context;
+  // console.log('express req  ', req.body);
+  // console.log('express req auth  ', req.auth);
+  // return { text: 'literally any text' };
+  return {};
 };
 
 const apolloServer = new ApolloServer({
