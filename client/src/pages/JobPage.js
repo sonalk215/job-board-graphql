@@ -8,7 +8,7 @@ function JobPage() {
   const { jobId } = useParams();
   const { job, loading, error } = useJob(jobId);
 
-  console.log('[JobPage  ]  ', job, loading, error);
+  // console.log('[JobPage  ]  ', job, loading, error);
 
   if (loading) {
     return <div>Loading...</div>;

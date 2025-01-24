@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import JobList from '../components/JobList';
 // import { jobs } from '../lib/fake-data';
-import { getJobs } from '../lib/graphql/queries';
+// import { getJobs } from '../lib/graphql/queries';
 import { useJobs } from '../lib/graphql/hooks';
 
 const HomePage = () => {
   const { jobs, loading, error } = useJobs();
   // const [jobs, setJobs] = useState([]);
 
-  console.log('[HomePage] jobs ', jobs);
+  // console.log('[HomePage] jobs ', jobs);
 
   // useEffect(() => {
   //   getJobs().then((jobs) => setJobs(jobs));

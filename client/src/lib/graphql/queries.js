@@ -85,32 +85,41 @@ export const companyByIdQuery = gql`
   }
 `;
 
-export const createJob = async ({ title, description }) => {
-  const mutation = gql`
-    mutation CreateJob($input: CreateJobInput!) {
-      job: createJob(input: $input) {
-        ...JobDetail
-      }
+export const createJobMutation = gql`
+  mutation CreateJob($input: CreateJobInput!) {
+    job: createJob(input: $input) {
+      ...JobDetail
     }
-    ${jobDetailFragment}
-  `;
+  }
+  ${jobDetailFragment}
+`;
 
-  //------use Apollo client
-  const { data } = await apolloClient.mutate({
-    mutation,
-    variables: { input: { title, description } },
-    //to write the above mutation result in cache
-    update: (cache, { data }) => {
-      // console.log('result     ', data);
-      cache.writeQuery({
-        query: jobByIdQuery,
-        variables: { id: data.job.id },
-        data,
-      });
-    },
-  });
-  return data.job;
-};
+// export const createJob = async ({ title, description }) => {
+//   const mutation = gql`
+//     mutation CreateJob($input: CreateJobInput!) {
+//       job: createJob(input: $input) {
+//         ...JobDetail
+//       }
+//     }
+//     ${jobDetailFragment}
+//   `;
+
+//   //------use Apollo client
+//   const { data } = await apolloClient.mutate({
+//     mutation,
+//     variables: { input: { title, description } },
+//     //to write the above mutation result in cache
+//     update: (cache, { data }) => {
+//       // console.log('result     ', data);
+//       cache.writeQuery({
+//         query: jobByIdQuery,
+//         variables: { id: data.job.id },
+//         data,
+//       });
+//     },
+//   });
+//   return data.job;
+// };
 
 // export const getJobs = async () => {
 //   const query = gql`
