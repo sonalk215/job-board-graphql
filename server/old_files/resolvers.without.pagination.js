@@ -1,5 +1,4 @@
 import {
-  countJobs,
   createJob,
   deleteJob,
   getJob,
@@ -26,11 +25,7 @@ export const resolvers = {
       }
       return company;
     },
-    jobs: async (_root, { limit, offset }) => {
-      const items = await getJobs(limit, offset);
-      const totalCount = await countJobs();
-      return { items, totalCount };
-    },
+    jobs: () => getJobs(),
     greeting: () => 'Hello world greeting',
   },
   // field resolvers, to resolve any field of any type
